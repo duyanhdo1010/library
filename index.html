@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <dialog>
+            <form id="add-book-form" action="/" method="post">
+                <legend>New Book</legend>
+                <input type="text" placeholder="Book's Title" id="title" required>
+                <input type="text" placeholder="Book's Author" id="author" required>
+                <input type="number" placeholder="How many pages?" id="pages" required>
+                <div class="checkbox">Have you read ?<input type="checkbox" id="isRead"></div>
+                <button type="submit">Add Book</button>
+                <button type="button" id="close-dialog">Cancel</button>
+            </form>
+    </dialog>
+
+    <div class="header">World's Finest Library</div>
+    <div class="content">
+        <div class="new-btn">
+            <button id="show-dialog">Add New Book</button>
+        </div>
+        <div class="books-shelf">
+
+        </div>
+    </div>
+    <div class="footer">Copyright © Do Duy Anh</div>
+    <script src="./script.js"></script>
+</body>
+</html>

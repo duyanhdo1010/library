@@ -1,0 +1,147 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20% 1fr 20%;
+    font-family: 'Roboto', sans-serif;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75em;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 15% 1fr;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+dialog {
+    border-radius: 12px;
+}
+
+.new-btn button {
+    background-color: white;
+    border-radius: 14px;
+    padding: 0.5em 1em;
+    font-size: 1.5rem;
+    border: 4px solid black;
+}
+
+.new-btn button:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.new-btn button:active {
+    background-color: #7a7a7a;
+}
+
+#add-book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#add-book-form legend {
+    align-self: center;
+    justify-self: center;
+}
+
+#add-book-form input[type=text], #add-book-form input[type=number] {
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    padding: 0.5em 0.75em;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    min-width: 30ch;
+}
+
+#add-book-form input[type=text]:focus, #add-book-form input[type=number]:focus {
+    border: 3px solid #555;
+}
+
+#add-book-form .checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+#add-book-form input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+#add-book-form button[type=submit] {
+    background-color: rgb(114, 255, 114);
+    border-radius: 14px;
+    padding: 0.5em 1em;
+    font-size: 1.5rem;
+    border: 4px solid black;
+}
+
+#add-book-form button[type=submit]:active {
+    background-color: rgb(75, 168, 75);
+}
+
+#add-book-form button[type=button] {
+    background-color: white;
+    border-radius: 14px;
+    padding: 0.5em 1em;
+    font-size: 1.5rem;
+    border: 4px solid black;
+}
+
+#add-book-form button[type=button]:active {
+    background-color: rgb(163, 163, 163);
+}
+
+.books-shelf {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-flow: row;
+    gap: 1em;
+    justify-items: center;
+    align-items: center;
+    padding: 1em;
+    width: 95%;
+    box-sizing: content-box;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+button.delete-button:hover {
+    cursor: pointer; 
+}
+
+button.isRead:hover {
+    cursor: pointer; 
+}
+
+.footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    padding: 1.5em;
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+
+
