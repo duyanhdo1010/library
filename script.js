@@ -3,34 +3,73 @@ const showButton = document.querySelector("#show-dialog");
 const closeButton = document.querySelector("#close-dialog");
 const bookShelf = document.querySelector(".books-shelf");
 
+const myLibrary = [];
 
-// open modal
+class Book {
+    constructor(title, author, page, isRead) {
+        this.title = title;
+        this.author = author;
+        this.page = page;
+        this.isRead = isRead;
+    }
+}
 
-showButton.addEventListener("click", () => {
-    dialog.showModal();
-  });
+function displayBooks() { 
+    // xoa sach cu di truoc khi them sach moi vao
+    while (bookShelf.firstChild) {
+        bookShelf.removeChild(bookShelf.firstChild);
+    }
 
-// close modal
+    // them sach vao thu vien
+    for (let i = 0; i < myLibrary.length; i++) {    
+        const book = myLibrary[i];
+        const bookCard = createBookCard(book, i);
+        bookShelf.appendChild(bookCard);
+    }
+}
 
-closeButton.addEventListener("click", () => {
-    dialog.close();
-  });
+function createBookCard(book, bookId) {
+    // tao the div chua thong tin sach
+    const bookCard = document.createElement("div");
+    bookCard.classList.add("book-card");
+    bookCard.setAttribute("data-book-id", bookId);
 
+    const titleSpan = document.createElement("div");
+    titleSpan.classList.add("title");
+    titleSpan.textContent = book.title;
 
-// working with books
+    const authorSpan = document.createElement("div");
+    authorSpan.classList.add("author");
+    authorSpan.textContent = book.author;
 
-  const myLibrary = [];
+    const pageSpan = document.createElement("div");
+    pageSpan.classList.add("page");
+    pageSpan.textContent = book.page;
 
-//ham khoi tao
+    const isReadSpan = document.createElement("button");
+    isReadSpan.classList.add("isRead");
+    isReadSpan.textContent = book.isRead ? "Read" : "Not Read";
+    isReadSpan.addEventListener("click", () => {
+        book.isRead = !book.isRead;
+        isReadSpan.textContent = book.isRead ? "Read" : "Not Read";
+    });
 
-  function Book(title, author, page, isRead) {
-    this.title = title;
-    this.author = author;
-    this.page = page;
-    this.isRead = isRead;
-  }
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", () => {
+        myLibrary.splice(bookId, 1);
+        displayBooks();
+    });
 
-// xu ly hanh dong submit va them sach vao thu vien
+    bookCard.appendChild(titleSpan);
+    bookCard.appendChild(authorSpan);
+    bookCard.appendChild(pageSpan);
+    bookCard.appendChild(isReadSpan);
+    bookCard.appendChild(deleteButton);
+
+    return bookCard;
+}
 
 document.querySelector('#add-book-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -45,103 +84,18 @@ document.querySelector('#add-book-form').addEventListener('submit', function(eve
     displayBooks();
 
     // reset form
-
-    // document.getElementById('add-book-form').reset();
+    document.getElementById('add-book-form').reset();
 
     // close modal
     dialog.close();
 });
 
+// open modal
+showButton.addEventListener("click", () => {
+    dialog.showModal();
+});
 
-
-//ham hien thi sach trong thu vien
-    
-      function displayBooks() { 
-
-        // xoa sach cu di truoc khi them sach moi vao
-
-        while (bookShelf.firstChild) {
-          bookShelf.removeChild(bookShelf.firstChild);
-      }
-
-      // them sach vao thu vien
-
-        for (let i = 0; i < myLibrary.length; i++) {
-        const bookTitle = myLibrary[i].title;
-        const bookAuthor = myLibrary[i].author;
-        const bookPage = myLibrary[i].page;
-        const bookIsRead = myLibrary[i].isRead;
-        const bookId = i;
-
-        // tao the div chua thong tin sach
-
-        const bookCard = document.createElement("div");
-        bookCard.classList.add("book-card");
-        bookCard.setAttribute("data-book-id", bookId);
-
-        const titleSpan = document.createElement("div");
-        titleSpan.classList.add("title");
-        titleSpan.textContent = bookTitle;
-        titleSpan.style.cssText = "flex: 1; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.25em;";
-        const authorSpan = document.createElement("div");
-        authorSpan.classList.add("author");
-        authorSpan.textContent = bookAuthor;
-        authorSpan.style.cssText = "flex: 1; display: flex; justify-content: center; align-items: center;";
-        const pageSpan = document.createElement("div");
-        pageSpan.classList.add("page");
-        pageSpan.textContent = bookPage;
-        pageSpan.style.cssText = "flex: 1; display: flex; justify-content: center; align-items: center;";
-
-        const isReadSpan = document.createElement("button");
-        isReadSpan.classList.add("isRead");
-
-        isReadSpan.style.cssText = "flex: 1; display: flex; justify-content: center; align-items: center; padding: 0.5em; border-radius: 12px; border: 3px solid black; width: 100%; font-size: 0.75em; background-color: #f5f5f5;";
-
-        if (bookIsRead === true) {
-          isReadSpan.textContent = "Read";
-          isReadSpan.style.backgroundColor = "rgb(114, 255, 114)";
-
-        } else {
-          isReadSpan.textContent = "Not Read";
-          isReadSpan.style.backgroundColor = "red";
-
-        }
-        isReadSpan.addEventListener("click", () => {
-          if (myLibrary[bookId].isRead === true) {
-            myLibrary[bookId].isRead = false;
-            isReadSpan.textContent = "Not Read";
-            isReadSpan.style.backgroundColor = "red";
-          } else {
-            myLibrary[bookId].isRead = true;
-            isReadSpan.textContent = "Read";
-            isReadSpan.style.backgroundColor = "rgb(114, 255, 114)";
-          }
-        });
-
-        // tao the button xoa sach
-
-        const deleteButton = document.createElement("button");
-        deleteButton.classList.add("delete-button");
-        deleteButton.textContent = "Delete";
-        deleteButton.style.cssText = "flex: 1; display: flex; justify-content: center; align-items: center; padding: 0.5em; border-radius: 12px; border: 3px solid black; width: 100%; font-size: 0.75em; background-color: #f5f5f5;";
-        deleteButton.addEventListener("click", () => {
-          myLibrary.splice(bookId, 1);
-          bookCard.remove();
-          displayBooks();
-        });
-
-        // stying cho the div chua thong tin sach
-
-        bookCard.style.cssText = "display: flex; flex-direction: column; justify-content: center; width: 200px; height: 200px; border: 1px solid black; padding: 1em; margin: 1em; align-items: center; border-radius: 12px; bg-color: #f5f5f5; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); border: 3px solid black; font-size: 1.25em; gap: 1em;";
-
-
-        bookCard.appendChild(titleSpan);
-        bookCard.appendChild(authorSpan);
-        bookCard.appendChild(pageSpan);
-        bookCard.appendChild(isReadSpan);
-        bookCard.appendChild(deleteButton);
-
-        bookShelf.appendChild(bookCard);
-
-        };
-      }
+// close modal
+closeButton.addEventListener("click", () => {
+    dialog.close();
+});
